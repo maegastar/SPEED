@@ -1,0 +1,39 @@
+{
+  "name": "speed",
+  "version": "1.0.0",
+  "description": "website: https://speed-website.herokuapp.com/",
+  "main": "app.js",
+  "scripts": {
+    "build": "cd frontend && npm run build",
+    "install-client": "cd frontend && npm install",
+    "heroku-postbuild": "npm run install-client && cd frontend && npm install && npm run build",
+    "server": "node app.js",
+    "develop": "concurrently --kill-others-on-fail \"npm run server\"\"npm run start --prefix frontend\"",
+    "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run start --prefix frontend\"",
+    "app": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.0",
+    "concurrently": "^7.4.0",
+    "config": "^3.3.8",
+    "cors": "^2.8.5",
+    "express": "^4.18.1",
+    "mongoose": "^6.6.0",
+    "validation": "^0.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maegastar/SPEED.git"
+  },
+  "bugs": {
+    "url": "https://github.com/maegastar/SPEED/issues"
+  },
+  "homepage": "https://github.com/maegastar/SPEED#readme"
+}
