@@ -1,7 +1,10 @@
 //need to figure out api's
 
+const { LogTimings } = require('concurrently');
 const express = require('express');
 const router = express.Router();
+
+const Login = require("../../models/Login");
 
 //load database model - as articles? could change later if needed
 const Article = require('../../models/Article');
@@ -17,5 +20,24 @@ router.get('/', (req, res) => {
       .then(speed => res.json(speed))
       .catch(err => res.status(404).json({ noarticlefound: 'No Articles found' }));
   });
+
+  //@route GET api/SPEED
+  router.post('/Login', async (req, res) => {
+    await mongoose.find({
+        user: req.body.user,
+        pass: req.body.pass
+    }, function (err, ress) {
+       
+        if (err) {
+            res.send('Wrong User or Pass')
+        }
+        else {
+
+            res.send('Login Successful')
+        }
+
+    }
+    )
+})
 
   module.exports = router;
