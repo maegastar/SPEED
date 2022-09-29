@@ -39,6 +39,8 @@ const Moderator_Login = () => {
 
   // JSX code for login form
   const renderForm = (
+    <div>
+      <h2>Moderator Login </h2>
     <div id="id01" className="modal">
       <div className = "container">
         <div className="form">
@@ -46,12 +48,10 @@ const Moderator_Login = () => {
             <div className="input-container">
               <label>Username </label><br></br>
               <input type="text" name="user" id="user" required />
-              
             </div>
             <div className="input-container">
               <label>Password </label><br></br>
               <input type="password" name="pass" id="pass" required />
-              
             </div>
             <div className="button-container">
               <button type="submit">Login</button>
@@ -59,6 +59,7 @@ const Moderator_Login = () => {
           </form>
         </div>
       </div>
+    </div>
     </div>
   );
 

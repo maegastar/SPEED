@@ -40,7 +40,7 @@ ul.header li a {
 .modal {
   position: fixed;
   left: 50%;
-  top: 50%;
+  top: 60%;
   transform: translate(-50%, -50%);
   z-index: 1;
   align-items: center;
@@ -50,4 +50,11 @@ ul.header li a {
   overflow: auto;
   background-color: rgb(255, 255, 255);
   padding-top: 60px;
+}
+
+.form{
+  font-family: sans-serif;
+}
+.input-container{
+  padding: 10px
 }
