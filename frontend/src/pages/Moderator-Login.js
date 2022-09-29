@@ -4,23 +4,31 @@ import axios from 'axios';
 
 const Moderator_Login = () => {
     // React States
-  const [errorMessages, setErrorMessages] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleSubmit = (event) => {
     //Prevent page reload
     event.preventDefault();
 
-    var { user, pass } = document.forms[0];
+    var user = document.getElementById("user").value;
+    var pass = document.getElementById("pass").value;
 
-    // Find user login info
+    // Check if user info matches user data in database
+    //currently set to only check if it matches the first user
     axios
-      .post('http://localhost:5000/api/SPEED/Login', (document.forms[0]))
+      .get('http://localhost:5000/api/SPEED/mod')
       .then(res => {
-       if(res === "Login Successful"){
-        setIsSubmitted(true);
+        console.log(res.data[0].pass);
+       if(res.data[0].user === user){
+        if(res.data[0].pass === pass){
+          setIsSubmitted(true);
+        } else {
+          setIsSubmitted(false);
+        console.log("IS submitted is false");
+        }
        } else {
         setIsSubmitted(false);
+        console.log("IS submitted is false");
        }
       })
       .catch(err => {
@@ -28,11 +36,6 @@ const Moderator_Login = () => {
       })
   };
 
-  // Generate JSX code for error message
-  const renderErrorMessage = (name) =>
-    name === errorMessages.name && (
-      <div className="error">{errorMessages.message}</div>
-    );
 
   // JSX code for login form
   const renderForm = (
@@ -42,13 +45,13 @@ const Moderator_Login = () => {
           <form onSubmit={handleSubmit}>
             <div className="input-container">
               <label>Username </label><br></br>
-              <input type="text" name="user" required />
-              {renderErrorMessage("user")}
+              <input type="text" name="user" id="user" required />
+              
             </div>
             <div className="input-container">
               <label>Password </label><br></br>
-              <input type="password" name="pass" required />
-              {renderErrorMessage("pass")}
+              <input type="password" name="pass" id="pass" required />
+              
             </div>
             <div className="button-container">
               <button type="submit">Login</button>

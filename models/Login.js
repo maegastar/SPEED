@@ -11,4 +11,4 @@ var loginInfo =new mongoose.Schema({
     },
 })
 
-module.export=mongoose.model('User',loginInfo);
+module.exports = Login = mongoose.model('user',loginInfo);

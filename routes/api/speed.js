@@ -21,23 +21,18 @@ router.get('/', (req, res) => {
       .catch(err => res.status(404).json({ noarticlefound: 'No Articles found' }));
   });
 
-  //@route GET api/SPEED
-  router.post('/Login', async (req, res) => {
-    await mongoose.find({
-        user: req.body.user,
-        pass: req.body.pass
-    }, function (err, ress) {
-       
-        if (err) {
-            res.send('Wrong User or Pass')
-        }
-        else {
+  //@route POST api/SPEED/mod
+  router.post('/mod', (req, res) => {
+    Login.create(req.body)
+      .then((user) => res.json({ msg: "User added successfully" }))
+      .catch((err) => res.status(400).json({ error: "Unable to add this user" }));
+  });
 
-            res.send('Login Successful')
-        }
-
-    }
-    )
-})
+  //@route GET api/SPEED/mod
+  router.get('/mod', (req, res) => {
+    Login.find()
+      .then(user => res.json(user))
+      .catch((err) => res.status(400).json({ error: "Unable to find this user" }));
+  });
 
   module.exports = router;
