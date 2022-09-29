@@ -8,8 +8,9 @@ import {
 import Home from "./pages/Home";
 import SEPractice from "./pages/SE-Practice";
 import SubmitArticle from "./pages/Submit-Article"; 
-import NotFoundPage from "./pages/404";
 import ModeratorLogin from "./pages/Moderator-Login";
+import AnalystLogin from "./pages/Analyst-Login";
+import NotFoundPage from "./pages/404";
 
 const App = () =>  {
     return (
@@ -22,6 +23,7 @@ const App = () =>  {
                 <li><NavLink to = "/SEPractice">Select the Practice</NavLink></li>
                 <li><NavLink to = "/SubmitArticle">Submit an Article</NavLink></li>
                 <li><NavLink to = "/Moderator-Login">Moderator</NavLink></li>
+                <li><NavLink to = "/Analyst-Login">Analyst</NavLink></li>
             </ul>
             <div className="content">
           
@@ -30,6 +32,7 @@ const App = () =>  {
               <Route  path="/SEPractice" element={<SEPractice/>}/>
               <Route  path="/SubmitArticle" element={<SubmitArticle/>}/>
               <Route  path="/Moderator-Login" element={<ModeratorLogin/>}/>
+              <Route path="Analyst-Login" element={<AnalystLogin/>}/>
               <Route  path="*" element={<NotFoundPage/>}/>
               
           </Routes>
