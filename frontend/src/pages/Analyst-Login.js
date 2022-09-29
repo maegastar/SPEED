@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const Moderator_Login = () => {
-    // React States
+const Analyst_Login = () => {
+      // React States
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleSubmit = (event) => {
@@ -14,13 +14,13 @@ const Moderator_Login = () => {
 
     // Check if user info matches user data in database
     //currently set to only check if it matches the first user
-    //user is "mod"
-    //pass is "mod123"
+    //user is "analyst"
+    //pass is "analyst321"
     axios
       .get('http://localhost:5000/api/SPEED/mod')
       .then(res => {
-       if(res.data[0].user === user){
-        if(res.data[0].pass === pass){
+       if(res.data[1].user === user){
+        if(res.data[1].pass === pass){
           setIsSubmitted(true);
         } else {
           setIsSubmitted(false);
@@ -40,7 +40,7 @@ const Moderator_Login = () => {
   // JSX code for login form
   const renderForm = (
     <div>
-      <h2>Moderator Login </h2>
+      <h2>Analyst Login </h2>
     <div id="id01" className="modal">
       <div className = "container">
         <div className="form">
@@ -70,4 +70,4 @@ const Moderator_Login = () => {
   );
 }
  
-export default Moderator_Login;
+export default Analyst_Login;
