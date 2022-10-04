@@ -10,18 +10,26 @@ const SubmitArticle = () => {
     var title = document.getElementById("title").value;
     var author = document.getElementById("author").value;
     var description = document.getElementById("description").value;
-    var publishedDate = document.getElementById("publishedDate").value;
+    var published_date = document.getElementById("published_date").value;
     var publisher = document.getElementById("publisher").value;
 
-    const query = await axios
-      .post('/api/SPEED/submit', {
-        title, author, description, publishedDate, publisher
-      }, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      }).then(response => { return response; })
+    const form = document.querySelector('form');
+
+    if (!form) return;
+
+    const formData = new FormData(form);
+
+    // let isSuccessful = false;
+    const response = await axios
+      .get('/api/SPEED/submit', {
+        params: {
+          title, author, description, published_date, publisher
+        }
+      })
+      .then(response => response)
       .catch(err => console.log("API error!"));
+
+    if (response.data.isSuccessful) alert("Article added successfully!");
   };
 
   const formToSubmitArticle = (
@@ -44,7 +52,7 @@ const SubmitArticle = () => {
             </div>
             <div className="input-container">
               <label>Published Date </label><br></br>
-              <input type="date" name="publishedDate" id="publishedDate" required />
+              <input type="date" name="published_date" id="published_date" required />
             </div>
             <div className="input-container">
               <label>Publisher </label><br></br>
