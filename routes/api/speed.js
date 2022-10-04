@@ -35,23 +35,22 @@ router.get('/mod', (req, res) => {
     .catch((err) => res.status(400).json({ error: "Unable to find this user" }));
 });
 
-router.post('/submit', (req, res) => {
+router.get('/submit', (req, res) => {
   Article.create({
-    title: req.query.title ?? '',
-    author: req.query.author ?? '',
-    description: req.query.description ?? '',
-    published_date: req.query.publishedDate ?? '',
+    title: req.query.title,
+    description: req.query.description,
+    published_date: req.query.published_date,
     publisher: req.query.publisher
   })
-    .then(res => { return JSON.stringify({ isSuccessful: true }); })
+    .then((response) => res.status(200).json({ isSuccessful: true }))
     .catch((err) => res.status(400).json({ error: "Database error!" + err }));
-})
+});
 
 router.get('/search', (req, res) => {
   let title = req.query.title;
   // let author = req.query.author;
   // let description = req.query.description;
-  // let publishedDate = req.query.publishedDate;
+  // let published_date = req.query.published_date;
   // let publisher = req.query.publisher;
 
   Article.find({
