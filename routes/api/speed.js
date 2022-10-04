@@ -16,23 +16,40 @@ router.get('/test', (req, res) => res.send('speed route testing'));
 // @route GET api/speed
 // @description Get all articles
 router.get('/', (req, res) => {
-    Article.find()
-      .then(speed => res.json(speed))
-      .catch(err => res.status(404).json({ noarticlefound: 'No Articles found' }));
-  });
+  Article.find()
+    .then(speed => res.json(speed))
+    .catch(err => res.status(404).json({ noarticlefound: 'No Articles found' }));
+});
 
-  //@route POST api/SPEED/mod
-  router.post('/mod', (req, res) => {
-    Login.create(req.body)
-      .then((user) => res.json({ msg: "User added successfully" }))
-      .catch((err) => res.status(400).json({ error: "Unable to add this user" }));
-  });
+//@route POST api/SPEED/mod
+router.post('/mod', (req, res) => {
+  Login.create(req.body)
+    .then((user) => res.json({ msg: "User added successfully" }))
+    .catch((err) => res.status(400).json({ error: "Unable to add this user" }));
+});
 
-  //@route GET api/SPEED/mod
-  router.get('/mod', (req, res) => {
-    Login.find()
-      .then(user => res.json(user))
-      .catch((err) => res.status(400).json({ error: "Unable to find this user" }));
-  });
+//@route GET api/SPEED/mod
+router.get('/mod', (req, res) => {
+  Login.find()
+    .then(user => res.json(user))
+    .catch((err) => res.status(400).json({ error: "Unable to find this user" }));
+});
 
-  module.exports = router;
+router.get('/search', (req, res) => {
+  let title = req.query.title;
+  // let author = req.query.author;
+  // let description = req.query.description;
+  // let publishedDate = req.query.publishedDate;
+  // let publisher = req.query.publisher;
+
+  Article.find({
+    "title": {
+      "$regex": title,
+      "$options": "i"
+    }
+  })
+    .then((data) => res.json(data))
+    .catch((err) => res.status(400).json({ error: "Database error!" }))
+})
+
+module.exports = router;
