@@ -25,7 +25,7 @@ const SearchArticle = () => {
     let searchResultDiv = document.getElementById('searchResultDiv');
     searchResultDiv.innerHTML = "";
 
-    if (typeof results === 'object') {
+    if (typeof results === 'object' && typeof results[0] === 'object') {
       const ol = document.createElement('ol');
 
       for (const i in results) {
@@ -91,11 +91,6 @@ const SearchArticle = () => {
   return (
     <div>
       {formToSearchArticle}
-      {/* <div>
-        res.data {/* if count > 0 }
-        ? <div>Results: </div>
-        : <i>No article found!</i>
-      </div> */}
     </div>
   );
 };
