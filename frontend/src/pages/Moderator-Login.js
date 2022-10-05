@@ -17,7 +17,7 @@ const Moderator_Login = () => {
     //user is "mod"
     //pass is "mod123"
     axios
-      .get('http://localhost:5000/api/SPEED/mod')
+      .get('https://speed-website.herokuapp.com/api/SPEED/mod')
       .then(res => {
        if(res.data[0].user === user){
         if(res.data[0].pass === pass){
