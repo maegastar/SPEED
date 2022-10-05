@@ -17,7 +17,7 @@ const Analyst_Login = () => {
     //user is "analyst"
     //pass is "analyst321"
     axios
-      .get('http://localhost:5000/api/SPEED/mod')
+      .get('https://speed-website.herokuapp.com/api/SPEED/mod')
       .then(res => {
        if(res.data[1].user === user){
         if(res.data[1].pass === pass){
