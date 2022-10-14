@@ -64,3 +64,17 @@ table, th, td{
   border-collapse: collapse;
   padding: 10px;
 }
+
+.pendingTable{
+  width: 40%;
+  padding: 5%;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.allTable{
+  width: 40%;
+  padding: 5%;
+  display: inline-block;
+  vertical-align: top;
+}
