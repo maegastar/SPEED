@@ -26,21 +26,31 @@ const SearchArticle = () => {
     searchResultDiv.innerHTML = "";
 
     if (typeof results === 'object' && typeof results[0] === 'object') {
-      const ol = document.createElement('ol');
+      const table = document.createElement('table');
+
+      let headerRow = document.createElement('tr');
+      let headings = ['Title', 'Author', 'Journal', 'Year'];
+
+      headings.forEach(headingText => {
+        let titleHeading = document.createElement('th');
+        titleHeading.appendChild(document.createTextNode(headingText));
+        headerRow.appendChild(titleHeading);
+      });
+
+      table.appendChild(headerRow);
 
       for (const i in results) {
-        let li = document.createElement('li');
-        let text = '';
+        let tr = document.createElement('tr');
         for (const j in results[i]) {
-          if (results[i].hasOwnProperty(j)) {
-            text += `${j} : ${results[i][j]}, `
-          }
+          let td = document.createElement('td');
+          if (j == '_id' || j == '__v') continue;
+          td.appendChild(document.createTextNode(`${results[i][j]}`));
+          tr.appendChild(td);
         }
-        li.appendChild(document.createTextNode(text));
-        ol.appendChild(li);
+        table.appendChild(tr);
       }
 
-      searchResultDiv.appendChild(ol);
+      searchResultDiv.appendChild(table);
     } else { // no results
       const h2 = document.createElement('h2');
       const content = document.createTextNode('No results found! Please search with different keywords!');
