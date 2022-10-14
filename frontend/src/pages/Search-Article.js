@@ -29,7 +29,7 @@ const SearchArticle = () => {
       const table = document.createElement('table');
 
       let headerRow = document.createElement('tr');
-      let headings = ['Title', 'Author', 'Journal', 'Year'];
+      let headings = ['Title', 'Author', 'Time', 'Journal'];
 
       headings.forEach(headingText => {
         let titleHeading = document.createElement('th');
