@@ -58,3 +58,48 @@ ul.header li a {
 .input-container{
   padding: 10px
 }
+
+.content h2 {
+  text-transform: uppercase;
+  text-align: center;
+  font-family: serif;
+  font-size: 2em;
+}
+
+.input-container input {
+  width: 97%;
+  height: 2em;
+  border: 1px solid #0099ff;
+  border-radius: 5px;
+}
+
+.input-container label {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.modal {
+  border-radius: 1em;
+}
+
+form button {
+  width: 93%;
+  height: 2.5em;
+  text-transform: uppercase;
+  margin-top: 1em;
+  background: #0099ff;
+  border: none;
+  border-radius: 3px;
+  color: white;
+  font-weight: bold;
+  font-size: 0.9em;
+}
+
+.search-submit-container {
+  width: 50vw;
+}
+
+.search-submit-container form button {
+  width: 95%;
+  margin-left: 1%;
+}
