@@ -52,7 +52,7 @@ const SearchArticle = () => {
   };
 
   const formToSearchArticle = (
-    <div>
+    <div className="search-submit-container">
       <h2>Search Article</h2>
       <div className="container">
         <div className="form">
@@ -78,7 +78,7 @@ const SearchArticle = () => {
               <input type="text" name="publisher" id="publisher" />
             </div>
             <div className="button-container">
-              <button type="submit">Submit</button>
+              <button type="submit">Search</button>
             </div>
           </form>
         </div>
