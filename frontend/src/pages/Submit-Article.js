@@ -33,7 +33,7 @@ const SubmitArticle = () => {
   };
 
   const formToSubmitArticle = (
-    <div>
+    <div className='search-submit-container'>
       <h2>Submit Article</h2>
       <div className="container">
         <div className="form">
