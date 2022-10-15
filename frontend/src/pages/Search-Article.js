@@ -63,7 +63,6 @@ const SearchArticle = () => {
 
   const formToSearchArticle = (
     <div className="search-submit-container">
-      <h2>Search Article</h2>
       <div className="container">
         <div className="form">
           <form onSubmit={handleSearch}>

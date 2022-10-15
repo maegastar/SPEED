@@ -37,7 +37,7 @@ ul.header li a {
   background-color: #0099FF;
 }
 
-.modal {
+/* .modal {
   position: fixed;
   left: 50%;
   top: 60%;
@@ -50,7 +50,7 @@ ul.header li a {
   overflow: auto;
   background-color: rgb(255, 255, 255);
   padding-top: 60px;
-}
+} */
 
 .form{
   font-family: sans-serif;
