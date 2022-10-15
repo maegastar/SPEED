@@ -34,7 +34,6 @@ const SubmitArticle = () => {
 
   const formToSubmitArticle = (
     <div className='search-submit-container'>
-      <h2>Submit Article</h2>
       <div className="container">
         <div className="form">
           <form onSubmit={handleSubmissionOfArticle}>
