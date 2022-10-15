@@ -52,6 +52,10 @@ ul.header li a {
   padding-top: 60px;
 } */
 
+.login-form {
+  width: 50vw;
+}
+
 .form{
   font-family: sans-serif;
 }
@@ -83,7 +87,7 @@ ul.header li a {
 }
 
 form button {
-  width: 93%;
+  width: 200px;
   height: 2.5em;
   text-transform: uppercase;
   margin-top: 1em;
@@ -93,15 +97,11 @@ form button {
   color: white;
   font-weight: bold;
   font-size: 0.9em;
+  margin-left: 0.7em;
 }
 
 .search-submit-container {
   width: 50vw;
-}
-
-.search-submit-container form button {
-  width: 95%;
-  margin-left: 1%;
 }
 
 /* Search Results Layout */
