@@ -44,7 +44,6 @@ const Moderator_Login = () => {
   // JSX code for login form
   const renderForm = (
     <div>
-      <h2>Moderator Login </h2>
     <div id="id01" className="modal">
       <div className = "container">
         <div className="form">

@@ -40,7 +40,9 @@ router.get('/submit', (req, res) => {
     title: req.query.title,
     description: req.query.description,
     published_date: req.query.published_date,
-    publisher: req.query.publisher
+    publisher: req.query.publisher,
+    email: req.query.email,
+    status: 'PENDING_REVIEW',
   })
     .then((response) => res.status(200).json({ isSuccessful: true }))
     .catch((err) => res.status(400).json({ error: "Database error!" + err }));

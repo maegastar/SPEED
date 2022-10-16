@@ -1,9 +1,13 @@
 body {
-  background-color: #FFCC00;
+  background-color: #ffcc00;
   padding: 20px;
   margin: 0;
 }
-h1, h2, p, ul, li {
+h1,
+h2,
+p,
+ul,
+li {
   font-family: sans-serif;
 }
 ul.header li {
@@ -16,14 +20,14 @@ ul.header {
   padding: 0;
 }
 ul.header li a {
-  color: #FFF;
+  color: #fff;
   font-weight: bold;
   text-decoration: none;
   padding: 20px;
   display: inline-block;
 }
 .content {
-  background-color: #FFF;
+  background-color: #fff;
   padding: 20px;
 }
 .content h2 {
@@ -34,10 +38,10 @@ ul.header li a {
   margin-bottom: 10px;
 }
 .active {
-  background-color: #0099FF;
+  background-color: #0099ff;
 }
 
-.modal {
+/* .modal {
   position: fixed;
   left: 50%;
   top: 60%;
@@ -50,31 +54,90 @@ ul.header li a {
   overflow: auto;
   background-color: rgb(255, 255, 255);
   padding-top: 60px;
+} */
+
+.login-form {
+  width: 50vw;
 }
 
-.form{
+.form {
   font-family: sans-serif;
 }
-.input-container{
-  padding: 10px
-}
 
-table, th, td{
-  border: 1px solid rgb(0, 0, 0);
-  border-collapse: collapse;
+.input-container {
   padding: 10px;
 }
 
-.pendingTable{
-  width: 40%;
-  padding: 5%;
-  display: inline-block;
-  vertical-align: top;
+.content h2 {
+  text-transform: uppercase;
+  text-align: center;
+  font-family: serif;
+  font-size: 2em;
 }
 
-.allTable{
-  width: 40%;
-  padding: 5%;
-  display: inline-block;
-  vertical-align: top;
+.input-container input {
+  width: 97%;
+  height: 2em;
+  border: 1px solid #0099ff;
+  border-radius: 5px;
+}
+
+.input-container label {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.modal {
+  border-radius: 1em;
+}
+
+form button {
+  width: 200px;
+  height: 2.5em;
+  text-transform: uppercase;
+  margin-top: 1em;
+  background: #0099ff;
+  border: none;
+  border-radius: 3px;
+  color: white;
+  font-weight: bold;
+  font-size: 0.9em;
+  margin-left: 0.7em;
+}
+
+.search-submit-container {
+  width: 50vw;
+}
+
+/* Search Results Layout */
+#searchResultDiv {
+  margin-top: 1em;
+}
+
+table {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td,
+th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #0099ffc8;
+  color: white;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+tr:hover {
+  background-color: #ddd;
 }

@@ -10,13 +10,20 @@ const ArticleSchema = new mongoose.Schema({
     type: String,
   },
   description: {
-    type: String
+    type: String,
   },
   published_date: {
-    type: Date
+    type: Date,
   },
   publisher: {
-    type: String
+    type: String,
+  },
+  email: {
+    type: String,
+  },
+  status: {
+    type: String,
+    default: 'Pending_Review', // Other Possible Values: 'Approved_By_Moderator', 'Approved_By_Analyst', 'Rejected'
   },
 });
 
