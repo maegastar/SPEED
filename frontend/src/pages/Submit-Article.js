@@ -12,6 +12,7 @@ const SubmitArticle = () => {
     var description = document.getElementById("description").value;
     var published_date = document.getElementById("published_date").value;
     var publisher = document.getElementById("publisher").value;
+    var email = document.getElementById("email").value;
 
     const form = document.querySelector('form');
 
@@ -23,13 +24,13 @@ const SubmitArticle = () => {
     const response = await axios
       .get('/api/SPEED/submit', {
         params: {
-          title, author, description, published_date, publisher
+          title, author, description, published_date, publisher, email
         }
       })
       .then(response => response)
       .catch(err => console.log("API error!"));
 
-    if (response.data.isSuccessful) alert("Article added successfully!");
+    if (response.data.isSuccessful) alert("Thank You! Your article has been submitted successfully and shall be published after the review process.");
   };
 
   const formToSubmitArticle = (
@@ -56,6 +57,10 @@ const SubmitArticle = () => {
             <div className="input-container">
               <label>Publisher </label><br></br>
               <input type="text" name="publisher" id="publisher" required />
+            </div>
+            <div className="input-container">
+              <label>Your Email </label><br></br>
+              <input type="email" name="email" id="email" required />
             </div>
             <div className="button-container">
               <button type="submit">Submit</button>

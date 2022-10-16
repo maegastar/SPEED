@@ -10,13 +10,20 @@ const ArticleSchema = new mongoose.Schema({
     type: String,
   },
   description: {
-    type: String
+    type: String,
   },
   published_date: {
-    type: Date
+    type: Date,
   },
   publisher: {
-    type: String
+    type: String,
+  },
+  email: {
+    type: String,
+  },
+  status: {
+    type: Number,
+    default: 0
   },
 });
 
