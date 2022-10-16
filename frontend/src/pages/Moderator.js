@@ -4,7 +4,7 @@ import axios from 'axios';
 
 const Moderator = () => {
 
-    const status = ""; //check for pending articles
+    const status = "Pending_Review"; //check for pending articles
     const [pendingData, getPendingData] = useState([])
     const [data, getData] = useState([])
 
@@ -16,7 +16,11 @@ const Moderator = () => {
  
     //add params for pending status
     const fetchPendingData =() => { axios
-    .get('https://speed-website.herokuapp.com/api/SPEED/').then((response) => {
+    .get('https://speed-website.herokuapp.com/api/SPEED/', {
+        params: {
+            status
+          }
+    }).then((response) => {
         console.log(response.data);
         getPendingData(response.data);
     })
@@ -49,6 +53,7 @@ const Moderator = () => {
                         <th>Description </th>
                         <th>Published Date </th>
                         <th>Publisher </th>
+                        <th>Email</th>
                         <th>Status </th>
                     </tr>
                     </thead>
@@ -60,11 +65,11 @@ const Moderator = () => {
                         <td>{item.description}</td>
                         <td>{item.published_date}</td>
                         <td>{item.publisher}</td>
+                        <td>{item.email}</td>
                         <td><select id={i} onChange={onSelectChange.bind(this)}>
-                            <option value="current">currentStatus</option>
-                            <option value="pending">Pending</option>
-                            <option value="review">Review</option>
-                            <option value="reject">Reject</option>
+                            <option value="current">{item.status}</option>
+                            <option value="Approved_By_Moderator">Approved By Moderator</option>
+                            <option value="Rejected">Rejected</option>
                         </select></td>
                     </tr>
                 ))}
