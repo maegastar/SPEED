@@ -44,6 +44,16 @@ router.get('/status', (req, res) => {
     .catch((err) => res.status(400).json({ error: "Database error!" }))
 })
 
+router.get('/changestatus', (req, res) => {
+  const id = req.query.id;
+  const status = req.query.status;
+
+  Article.findByIdAndUpdate(id, { status }, { new: true })
+    .then((data) => res.json(data))
+    .catch((err) => res.status(400).json({ error: "Database error!" + err }));
+
+})
+
 router.get('/submit', (req, res) => {
   Article.create({
     title: req.query.title,

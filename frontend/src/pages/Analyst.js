@@ -4,47 +4,81 @@ import axios from 'axios';
 
 const Analyst = () => {
 
-    const status = "Pending_Review";
     const [pendingData, getPendingData] = useState([])
     const [data, getData] = useState([])
+    var stat = "";
 
 
     useEffect(() => {
-        fetchPendingData()
-        fetchData()
+        fetchApprovedByModerator()
+        fetchAllData()
     }, [])
 
-    const fetchPendingData = () => {
+
+    const fetchApprovedByModerator = () => {
         axios
-            .get('https://speed-website.herokuapp.com/api/SPEED/', {
+            .get('/api/SPEED/status', {
                 params: {
-                    status
+                    status: "Approved_By_Moderator"
                 }
             }).then((response) => {
-                console.log(response.data);
                 getPendingData(response.data);
             })
-            .catch(err => console.log("API error!"));
+            .catch(err => console.log(err));
     }
 
-    function onSelectChange(e) {
-        console.log(e.target.value);
-        console.log(e.target.id)
+    //handle status changes
+    async function onStatusChange(e) {
+        const status = e.target.value;
+        const id = e.target.id;
+
+        const update = await axios.get('/api/SPEED/changestatus', { params: { id, status } })
+            .then((response) => {
+                fetchApprovedByModerator();
+                fetchAllData();
+            })
+            .catch(err => console.log(err));
+        console.log(update);
     }
 
-    const fetchData = () => {
+    function filterALL() { fetchAllData(); }
+    function filterAnalyst() { fetchData("Approved_By_Analyst"); }
+    function filterModerator() { fetchData("Approved_By_Moderator"); }
+    function filterRejected() { fetchData("Rejected"); }
+
+    const fetchData = (status) => {
         axios
-            .get('https://speed-website.herokuapp.com/api/SPEED/').then((response) => {
-                console.log(response.data);
+            .get('/api/SPEED/status', {
+                params: { status }
+            }).then((response) => {
                 getData(response.data);
             })
             .catch(err => console.log("API error!"));
     }
 
+    const fetchAllData = () => {
+        axios
+            .get('/api/SPEED/status').then((response) => {
+                getData(response.data);
+            })
+            .catch(err => console.log("API error!"));
+    }
+
+    const formatDate = (date) => {
+        let dateObj = new Date(date);
+        let month = (dateObj.getMonth() + 1).toString();
+        let day = dateObj.getDate().toString();
+        let year = dateObj.getFullYear();
+        month = month.length < 2 ? '0' + month : month;
+        day = day.length < 2 ? '0' + day : day;
+        return [year, month, day].join('-');
+    }
+
     const renderForm = (
         <div>
             <div className='pendingTable'>
-                <div className='container'>
+                <h1>Articles APPROVED by Moderator</h1>
+                <div className='containerTable'>
                     <table>
                         <thead>
                             <tr>
@@ -63,10 +97,10 @@ const Analyst = () => {
                                     <td>{item.title}</td>
                                     <td>{item.author}</td>
                                     <td>{item.description}</td>
-                                    <td>{item.published_date}</td>
+                                    <td>{formatDate(item.published_date)}</td>
                                     <td>{item.publisher}</td>
                                     <td>{item.email}</td>
-                                    <td><select id={i} onChange={onSelectChange.bind(this)}>
+                                    <td><select id={item._id} onChange={onStatusChange.bind(this)}>
                                         <option value="current">{item.status}</option>
                                         <option value="Approved_By_Analyst">Approve</option>
                                         <option value="Rejected">Reject</option>
@@ -76,17 +110,18 @@ const Analyst = () => {
                         </tbody>
                     </table>
                 </div>
-                <button>Submit</button>
+
             </div>
 
             <div className='allTable'>
+                <h1>Articles Database</h1>
                 <div className='buttons'>
-                    <button>All </button>
-                    <button>Accepted </button>
-                    <button>Reviewing </button>
-                    <button>Rejected </button>
+                    <button onClick={filterALL}>Show All</button>
+                    <button onClick={filterModerator}>Accepted by Moderator </button>
+                    <button onClick={filterAnalyst}>Accepted by Analyst</button>
+                    <button onClick={filterRejected}>Rejected </button>
                 </div>
-                <div className='container'>
+                <div className='containerTable'>
                     <table>
                         <thead>
                             <tr>
@@ -106,6 +141,7 @@ const Analyst = () => {
                                     <td>{item.description}</td>
                                     <td>{item.published_date}</td>
                                     <td>{item.publisher}</td>
+                                    <td>{item.status}</td>
                                 </tr>
                             ))}
                         </tbody>
@@ -117,12 +153,7 @@ const Analyst = () => {
         </div>
     );
 
-    return (
-        <div>
-            {renderForm}
-        </div>
-    );
-
+    return (<div>{renderForm}</div>);
 }
 
 export default Analyst;
