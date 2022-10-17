@@ -15,7 +15,7 @@ const Moderator = () => {
  
     //add params for pending status
     const fetchPendingData =() => { axios
-    .get('https://speed-website.herokuapp.com/api/SPEED/pending').then((response) => {
+    .get('https://speed-website.herokuapp.com/api/SPEED/pending?status=pending').then((response) => {
         console.log(response.data);
         getPendingData(response.data);
     })
