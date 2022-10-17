@@ -4,7 +4,6 @@ import axios from 'axios';
 
 const Moderator = () => {
 
-    const status = "Pending_Review"; //check for pending articles
     const [pendingData, getPendingData] = useState([])
     const [data, getData] = useState([])
 
@@ -16,11 +15,7 @@ const Moderator = () => {
  
     //add params for pending status
     const fetchPendingData =() => { axios
-    .get('https://speed-website.herokuapp.com/api/SPEED/', {
-        params: {
-            status
-          }
-    }).then((response) => {
+    .get('https://speed-website.herokuapp.com/api/SPEED/pending').then((response) => {
         console.log(response.data);
         getPendingData(response.data);
     })
