@@ -11,6 +11,7 @@ import SearchArticle from "./pages/Search-Article";
 import ModeratorLogin from "./pages/Moderator-Login";
 import AnalystLogin from "./pages/Analyst-Login";
 import Moderator from "./pages/Moderator";
+import Analyst from "./pages/Analyst";
 import NotFoundPage from "./pages/404";
 
 const App = () => {
@@ -34,6 +35,7 @@ const App = () => {
             <Route path="/SearchArticle" element={<SearchArticle />} />
             <Route path="/Moderator-Login" element={<ModeratorLogin />} />
             <Route path="/Moderator" element={<Moderator />} />
+            <Route path="/Analyst" element={<Analyst />} />
             <Route path="Analyst-Login" element={<AnalystLogin />} />
             <Route path="*" element={<NotFoundPage />} />
 
