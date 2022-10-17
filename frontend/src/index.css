@@ -115,6 +115,24 @@ ul.header li a {
   color: white;
 }
 
+.pendingTable{
+  width: 50%;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.containerTable{
+  overflow: auto;
+  margin:0%
+}
+
+.allTable{
+  width:48%;
+  display: inline-block;
+  vertical-align: top;
+  margin-left: 20px;
+}
+
 .modal {
   border-radius: 1em;
 }

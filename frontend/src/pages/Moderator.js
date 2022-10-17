@@ -4,7 +4,6 @@ import axios from 'axios';
 
 const Moderator = () => {
 
-    const status = "Pending_Review"; //check for pending articles
     const [pendingData, getPendingData] = useState([])
     const [data, getData] = useState([])
 
@@ -16,11 +15,7 @@ const Moderator = () => {
  
     //add params for pending status
     const fetchPendingData =() => { axios
-    .get('https://speed-website.herokuapp.com/api/SPEED/', {
-        params: {
-            status
-          }
-    }).then((response) => {
+    .get('https://speed-website.herokuapp.com/api/SPEED/pending').then((response) => {
         console.log(response.data);
         getPendingData(response.data);
     })
@@ -44,7 +39,11 @@ const Moderator = () => {
     const renderForm = (
         <div>
             <div className='pendingTable'>
-                <div className='container'>
+            <h1>Articles Pending Review</h1>
+            <div className='buttons'>
+            <button>Submit</button>
+                </div>
+                <div className='containerTable'>
                 <table>
                     <thead>
                     <tr>
@@ -76,17 +75,18 @@ const Moderator = () => {
                     </tbody>
                 </table>
                 </div>
-                <button>Submit</button>
+                
             </div>
-
+            
             <div className='allTable'>
+            <h1>Articles Database</h1>
                 <div className='buttons'>
                 <button>All </button>
-                <button>Accepted </button>
-                <button>Reviewing </button>
+                <button>Accepted by Analyst</button>
+                <button>Accepted by Moderator </button>
                 <button>Rejected </button>
                 </div>
-            <div className='container'>
+            <div className='containerTable'>
                 <table>
                     <thead>
                     <tr>
@@ -106,6 +106,7 @@ const Moderator = () => {
                         <td>{item.description}</td>
                         <td>{item.published_date}</td>
                         <td>{item.publisher}</td>
+                        <td>{item.status}</td>
                     </tr>
                 ))}
                     </tbody>
