@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import {
+  useNavigate
+} from "react-router-dom";
 
 const Moderator_Login = () => {
     // React States
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     //Prevent page reload
@@ -64,7 +68,8 @@ const Moderator_Login = () => {
 
   return (
       <div className="login-form">
-        {isSubmitted ? <div>User is successfully logged in</div> : renderForm}
+        {isSubmitted ? navigate("/Moderator") : renderForm}
+        
       </div>
   );
 }
