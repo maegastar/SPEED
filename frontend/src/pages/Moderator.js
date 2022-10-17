@@ -40,6 +40,7 @@ const Moderator = () => {
             submitUpdateStatus();
             fetchAllData();
             fetchPendingData();
+            window.location.reload();
     }
 
     function filterALL(){
