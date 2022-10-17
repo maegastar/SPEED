@@ -5,6 +5,7 @@ const SearchArticle = () => {
   const handleSearch = async (event) => {
     event.preventDefault();
 
+    var keywords = document.getElementById("keywords").value;
     var title = document.getElementById("title").value;
     var author = document.getElementById("author").value;
     var description = document.getElementById("description").value;
@@ -43,7 +44,7 @@ const SearchArticle = () => {
         let tr = document.createElement('tr');
         for (const j in results[i]) {
           let td = document.createElement('td');
-          if (j == '_id' || j == '__v') continue;
+          if (j === '_id' || j === '__v' || j === 'status') continue;
           td.appendChild(document.createTextNode(`${results[i][j]}`));
           tr.appendChild(td);
         }
@@ -67,6 +68,10 @@ const SearchArticle = () => {
         <div className="form">
           <form onSubmit={handleSearch}>
             <div className="input-container">
+              <label>Keywords </label><br></br>
+              <input type="text" name="keywords" id="keywords" />
+            </div>
+            <div className="input-container">
               <label>Title </label><br></br>
               <input type="text" name="title" id="title" />
             </div>
@@ -80,7 +85,7 @@ const SearchArticle = () => {
             </div>
             <div className="input-container">
               <label>Published Date </label><br></br>
-              <input type="text" name="publishedDate" id="publishedDate" />
+              <input type="date" name="publishedDate" id="publishedDate" />
             </div>
             <div className="input-container">
               <label>Publisher </label><br></br>

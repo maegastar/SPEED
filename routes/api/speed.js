@@ -68,7 +68,8 @@ router.get('/search', (req, res) => {
     "title": {
       "$regex": title,
       "$options": "i"
-    }
+    },
+    "status": "Approved_By_Analyst"
   })
     .then((data) => res.json(data))
     .catch((err) => res.status(400).json({ error: "Database error!" }))
