@@ -44,6 +44,7 @@ router.get('/status', (req, res) => {
     .catch((err) => res.status(400).json({ error: "Database error!" }))
 })
 
+
 router.put('/updateStatus/:id', (req, res) => {
   if (!req.body) {
     return res.status(400).send({
@@ -64,6 +65,16 @@ router.put('/updateStatus/:id', (req, res) => {
         message: "Error updating Article with id=" + id
       });
     });
+
+router.get('/changestatus', (req, res) => {
+  const id = req.query.id;
+  const status = req.query.status;
+
+  Article.findByIdAndUpdate(id, { status }, { new: true })
+    .then((data) => res.json(data))
+    .catch((err) => res.status(400).json({ error: "Database error!" + err }));
+
+
 })
 
 router.get('/submit', (req, res) => {
