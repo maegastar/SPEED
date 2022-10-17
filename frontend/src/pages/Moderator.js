@@ -38,8 +38,8 @@ const Moderator = () => {
             .catch(err => console.log("API error!"));
         }
             submitUpdateStatus();
-            fetchPendingData();
             fetchAllData();
+            fetchPendingData();
     }
 
     function filterALL(){
