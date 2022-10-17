@@ -43,7 +43,7 @@ const SearchArticle = () => {
         let tr = document.createElement('tr');
         for (const j in results[i]) {
           let td = document.createElement('td');
-          if (j == '_id' || j == '__v') continue;
+          if (j === '_id' || j === '__v') continue;
           td.appendChild(document.createTextNode(`${results[i][j]}`));
           tr.appendChild(td);
         }
@@ -80,7 +80,7 @@ const SearchArticle = () => {
             </div>
             <div className="input-container">
               <label>Published Date </label><br></br>
-              <input type="text" name="publishedDate" id="publishedDate" />
+              <input type="date" name="publishedDate" id="publishedDate" />
             </div>
             <div className="input-container">
               <label>Publisher </label><br></br>

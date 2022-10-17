@@ -48,11 +48,11 @@ const Moderator_Login = () => {
       <div className = "container">
         <div className="form">
           <form onSubmit={handleSubmit}>
-            <div className="input-container">
+            <div className="input-container moderator-analyst">
               <label>Username </label><br></br>
               <input type="text" name="user" id="user" required />
             </div>
-            <div className="input-container">
+            <div className="input-container moderator-analyst">
               <label>Password </label><br></br>
               <input type="password" name="pass" id="pass" required />
             </div>
