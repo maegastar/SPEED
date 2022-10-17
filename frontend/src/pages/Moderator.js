@@ -4,22 +4,22 @@ import axios from 'axios';
 
 const Moderator = () => {
 
-    const status = "Pending_Review"; //check for pending articles
     const [pendingData, getPendingData] = useState([])
     const [data, getData] = useState([])
+    var stat = "";
 
 
     useEffect(() => {
         fetchPendingData()
-        fetchData()
+        fetchAllData()
     }, [])
  
-    //add params for pending status
+    
     const fetchPendingData =() => { axios
-    .get('https://speed-website.herokuapp.com/api/SPEED/', {
-        params: {
-            status
-          }
+    .get('https://speed-website.herokuapp.com/api/SPEED/status',{
+        params:{
+            status:"pending"
+        }
     }).then((response) => {
         console.log(response.data);
         getPendingData(response.data);
@@ -27,24 +27,59 @@ const Moderator = () => {
     .catch(err => console.log("API error!"));
     }
 
-    //handle status change
+    //handle status changes
     function onSelectChange(e){
         console.log(e.target.value);
-        console.log(e.target.id)
+        console.log(e.target.id);
     }
  
+    function filterALL(){
+        fetchAllData();
+    }
+
+    function filterAnalyst(){
+        stat = "analyst";
+        fetchData();
+    }
+
+    function filterModerator(){
+        stat = "moderator";
+        fetchData();
+    }
+
+    function filterRejected(){
+        stat = "rejected";
+        fetchData();
+    }
+
     const fetchData =() => { axios
-    .get('https://speed-website.herokuapp.com/api/SPEED/').then((response) => {
+    .get('https://speed-website.herokuapp.com/api/SPEED/status',{
+        params:{
+            status:stat
+        }
+    }).then((response) => {
         console.log(response.data);
         getData(response.data);
     })
     .catch(err => console.log("API error!"));
     }
+
+    const fetchAllData =() => { axios
+        .get('https://speed-website.herokuapp.com/api/SPEED/status').then((response) => {
+            console.log(response.data);
+            getData(response.data);
+        })
+        .catch(err => console.log("API error!"));
+        }
              
     const renderForm = (
         <div>
             <div className='pendingTable'>
-                <div className='container'>
+            <h1>Articles Pending Review</h1>
+            <div className='buttons'>
+            <button>Submit</button>
+                </div>
+                <div className='containerTable'>
                 <table>
                     <thead>
                     <tr>
@@ -76,17 +111,18 @@ const Moderator = () => {
                     </tbody>
                 </table>
                 </div>
-                <button>Submit</button>
+                
             </div>
-
+            
             <div className='allTable'>
+            <h1>Articles Database</h1>
                 <div className='buttons'>
-                <button>All </button>
-                <button>Accepted </button>
-                <button>Reviewing </button>
-                <button>Rejected </button>
+                <button onClick={filterALL}>Show All</button>
+                <button onClick={filterAnalyst}>Accepted by Analyst</button>
+                <button onClick={filterModerator}>Accepted by Moderator </button>
+                <button onClick={filterRejected}>Rejected </button>
                 </div>
-            <div className='container'>
+            <div className='containerTable'>
                 <table>
                     <thead>
                     <tr>
@@ -106,6 +142,7 @@ const Moderator = () => {
                         <td>{item.description}</td>
                         <td>{item.published_date}</td>
                         <td>{item.publisher}</td>
+                        <td>{item.status}</td>
                     </tr>
                 ))}
                     </tbody>

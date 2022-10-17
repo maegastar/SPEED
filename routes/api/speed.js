@@ -35,6 +35,15 @@ router.get('/mod', (req, res) => {
     .catch((err) => res.status(400).json({ error: "Unable to find this user" }));
 });
 
+router.get('/status', (req, res) => {
+  const status = req.query.status;
+  var condition = { status: { $regex: new RegExp(status), $options: "i" } };
+  Article.find(condition)
+
+    .then((data) => res.json(data))
+    .catch((err) => res.status(400).json({ error: "Database error!" }))
+})
+
 router.get('/submit', (req, res) => {
   Article.create({
     title: req.query.title,
