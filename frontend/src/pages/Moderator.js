@@ -8,7 +8,6 @@ const Moderator = () => {
     const [data, getData] = useState([])
     //status for filtering
     var stat = "";
-    var array = [];
 
     useEffect(() => {
         fetchPendingData()
@@ -29,32 +28,18 @@ const Moderator = () => {
 
     //handle status changes
     function onSelectChange(e){
-        console.log(e.target.value);
-        console.log(e.target.id);
-        array.push([e.target.id, e.target.value]);
-        console.log(array);
-    }
-
-    function submitUpdate(){
-        if(array.length>0){
-            var submitStatus = "";
-            var submitID = "";
-            for (var i = 0; i < array.length; i++) {
-                submitStatus = array[i][1]
-                submitID = array[i][0]
-                // eslint-disable-next-line no-loop-func
-                const submitUpdateStatus =() => {axios
-                .put('https://speed-website.herokuapp.com/api/SPEED/updateStatus/'+submitID,{
-                    id:submitID,
-                    status:submitStatus
-                }).then((response) => {
-                    console.log(response.data);;
-                })
-                .catch(err => console.log("API error!"));}
-                submitUpdateStatus();
-            }
-       }
-
+        const submitUpdateStatus =() => {axios
+            .put('https://speed-website.herokuapp.com/api/SPEED/updateStatus/'+e.target.id,{
+                id:e.target.id,
+                status:e.target.value
+            }).then((response) => {
+                console.log(response.data);
+            })
+            .catch(err => console.log("API error!"));
+        }
+            submitUpdateStatus();
+            fetchPendingData();
+            fetchAllData();
     }
 
     function filterALL(){
@@ -101,9 +86,6 @@ const Moderator = () => {
         <div>
             <div className='pendingTable'>
             <h1>Articles Pending Review</h1>
-            <div className='buttons'>
-            <button onClick={submitUpdate}>Submit</button>
-                </div>
                 <div className='containerTable'>
                 <table>
                     <thead>
