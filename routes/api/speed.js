@@ -65,6 +65,7 @@ router.put('/updateStatus/:id', (req, res) => {
         message: "Error updating Article with id=" + id
       });
     });
+  });
 
 router.get('/changestatus', (req, res) => {
   const id = req.query.id;
