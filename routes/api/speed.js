@@ -44,6 +44,28 @@ router.get('/status', (req, res) => {
     .catch((err) => res.status(400).json({ error: "Database error!" }))
 })
 
+router.put('/updateStatus/:id', (req, res) => {
+  if (!req.body) {
+    return res.status(400).send({
+      message: "Data to update can not be empty!"
+    });
+  }
+  const id = req.params.id;
+  Article.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
+    .then(data => {
+      if (!data) {
+        res.status(404).send({
+          message: `Cannot update Article with id=${id}. Maybe Article was not found!`
+        });
+      } else res.send({ message: "Article was updated successfully." });
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error updating Article with id=" + id
+      });
+    });
+})
+
 router.get('/submit', (req, res) => {
   Article.create({
     title: req.query.title,
