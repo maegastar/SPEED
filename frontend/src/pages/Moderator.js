@@ -6,35 +6,71 @@ const Moderator = () => {
 
     const [pendingData, getPendingData] = useState([])
     const [data, getData] = useState([])
+    var stat = "";
 
 
     useEffect(() => {
         fetchPendingData()
-        fetchData()
+        fetchAllData()
     }, [])
  
-    //add params for pending status
+    
     const fetchPendingData =() => { axios
-    .get('https://speed-website.herokuapp.com/api/SPEED/pending?status=pending').then((response) => {
+    .get('https://speed-website.herokuapp.com/api/SPEED/status',{
+        params:{
+            status:"pending"
+        }
+    }).then((response) => {
         console.log(response.data);
         getPendingData(response.data);
     })
     .catch(err => console.log("API error!"));
     }
 
-    //handle status change
+    //handle status changes
     function onSelectChange(e){
         console.log(e.target.value);
-        console.log(e.target.id)
+        console.log(e.target.id);
     }
  
+    function filterALL(){
+        fetchAllData();
+    }
+
+    function filterAnalyst(){
+        stat = "analyst";
+        fetchData();
+    }
+
+    function filterModerator(){
+        stat = "moderator";
+        fetchData();
+    }
+
+    function filterRejected(){
+        stat = "rejected";
+        fetchData();
+    }
+
     const fetchData =() => { axios
-    .get('https://speed-website.herokuapp.com/api/SPEED/').then((response) => {
+    .get('https://speed-website.herokuapp.com/api/SPEED/status',{
+        params:{
+            status:stat
+        }
+    }).then((response) => {
         console.log(response.data);
         getData(response.data);
     })
     .catch(err => console.log("API error!"));
     }
+
+    const fetchAllData =() => { axios
+        .get('https://speed-website.herokuapp.com/api/SPEED/status').then((response) => {
+            console.log(response.data);
+            getData(response.data);
+        })
+        .catch(err => console.log("API error!"));
+        }
              
     const renderForm = (
         <div>
@@ -81,10 +117,10 @@ const Moderator = () => {
             <div className='allTable'>
             <h1>Articles Database</h1>
                 <div className='buttons'>
-                <button>All </button>
-                <button>Accepted by Analyst</button>
-                <button>Accepted by Moderator </button>
-                <button>Rejected </button>
+                <button onClick={filterALL}>Show All</button>
+                <button onClick={filterAnalyst}>Accepted by Analyst</button>
+                <button onClick={filterModerator}>Accepted by Moderator </button>
+                <button onClick={filterRejected}>Rejected </button>
                 </div>
             <div className='containerTable'>
                 <table>
