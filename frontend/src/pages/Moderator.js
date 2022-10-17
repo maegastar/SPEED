@@ -6,14 +6,14 @@ const Moderator = () => {
 
     const [pendingData, getPendingData] = useState([])
     const [data, getData] = useState([])
+    //status for filtering
     var stat = "";
-
+    var array = [];
 
     useEffect(() => {
         fetchPendingData()
         fetchAllData()
     }, [])
- 
     
     const fetchPendingData =() => { axios
     .get('https://speed-website.herokuapp.com/api/SPEED/status',{
@@ -31,8 +31,32 @@ const Moderator = () => {
     function onSelectChange(e){
         console.log(e.target.value);
         console.log(e.target.id);
+        array.push([e.target.id, e.target.value]);
+        console.log(array);
     }
- 
+
+    function submitUpdate(){
+        if(array.length>0){
+            var submitStatus = "";
+            var submitID = "";
+            for (var i = 0; i < array.length; i++) {
+                submitStatus = array[i][1]
+                submitID = array[i][0]
+                // eslint-disable-next-line no-loop-func
+                const submitUpdateStatus =() => {axios
+                .put('https://speed-website.herokuapp.com/api/SPEED/updateStatus/'+submitID,{
+                    id:submitID,
+                    status:submitStatus
+                }).then((response) => {
+                    console.log(response.data);;
+                })
+                .catch(err => console.log("API error!"));}
+                submitUpdateStatus();
+            }
+       }
+
+    }
+
     function filterALL(){
         fetchAllData();
     }
@@ -52,6 +76,7 @@ const Moderator = () => {
         fetchData();
     }
 
+    //fetch by specific status
     const fetchData =() => { axios
     .get('https://speed-website.herokuapp.com/api/SPEED/status',{
         params:{
@@ -77,7 +102,7 @@ const Moderator = () => {
             <div className='pendingTable'>
             <h1>Articles Pending Review</h1>
             <div className='buttons'>
-            <button>Submit</button>
+            <button onClick={submitUpdate}>Submit</button>
                 </div>
                 <div className='containerTable'>
                 <table>
@@ -101,7 +126,7 @@ const Moderator = () => {
                         <td>{item.published_date}</td>
                         <td>{item.publisher}</td>
                         <td>{item.email}</td>
-                        <td><select id={i} onChange={onSelectChange.bind(this)}>
+                        <td><select id={item._id} onChange={onSelectChange.bind(this)}>
                             <option value="current">{item.status}</option>
                             <option value="Approved_By_Moderator">Approved By Moderator</option>
                             <option value="Rejected">Rejected</option>
