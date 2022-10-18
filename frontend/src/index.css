@@ -256,3 +256,15 @@ tr:hover {
   text-decoration: none;
   text-transform: uppercase;
 }
+
+/* Dashboard Table Filter Buttons */
+.buttons button {
+  background: #0099ffc8;
+  color: white;
+  text-transform: uppercase;
+  padding: 6px;
+  border-radius: 3px;
+  border: 1px solid;
+  margin: 5px;
+  margin-left: 0;
+}
