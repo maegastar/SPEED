@@ -35,6 +35,27 @@ ul.header {
   margin-bottom: 0px;
 }
 
+ul.header.footer {
+  text-align: center;
+}
+
+ul.header.footer li a:hover {
+  text-decoration: underline;
+
+}
+
+ul.header.footer li a {
+  font-size: 22px;
+}
+
+ul.header li a {
+  color: #fff;
+  font-weight: bold;
+  text-decoration: none;
+  padding: 20px;
+  display: inline-block;
+}
+
 ul.header li a {
   color: #fff;
   font-weight: bold;
@@ -58,6 +79,17 @@ ul.header li a {
 
 .content li {
   margin-bottom: 10px;
+}
+
+.home-content {
+  clear: both;
+  padding-top: 10px;
+  color: white;
+  font-size: 20px;
+}
+
+.home-content p {
+  font-family: 'Courier New', Courier, monospace;
 }
 
 .active {
@@ -115,25 +147,6 @@ ul.header li a {
   color: white;
 }
 
-.pendingTable {
-  width: 50%;
-  display: inline-block;
-  vertical-align: top;
-}
-
-.containerTable {
-  overflow: auto;
-  margin: 0%;
-  color: #eee;
-}
-
-.allTable {
-  width: 48%;
-  display: inline-block;
-  vertical-align: top;
-  margin-left: 20px;
-}
-
 .modal {
   border-radius: 1em;
 }
@@ -150,6 +163,10 @@ form button {
   font-weight: bold;
   font-size: 0.9em;
   margin-left: 0.7em;
+}
+
+form button:hover {
+  cursor: pointer;
 }
 
 .search-submit-container {
@@ -182,7 +199,7 @@ th {
 }
 
 tr:nth-child(even) {
-  background-color: #5281b9a8;
+  background-color: #f2f2f2;
 }
 
 tr:hover {
