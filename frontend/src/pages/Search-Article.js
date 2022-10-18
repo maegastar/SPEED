@@ -16,7 +16,7 @@ const SearchArticle = () => {
     const results = await axios
       .get('/api/SPEED/search', {
         params: {
-          title, author, description, publishedDate, publisher
+          keywords, title, author, description, publishedDate, publisher
         }
       }).then(response => response)
       .catch(err => console.log("API error!"));

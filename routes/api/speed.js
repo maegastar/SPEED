@@ -65,7 +65,7 @@ router.put('/updateStatus/:id', (req, res) => {
         message: "Error updating Article with id=" + id
       });
     });
-  });
+});
 
 router.get('/changestatus', (req, res) => {
   const id = req.query.id;
@@ -92,7 +92,8 @@ router.get('/submit', (req, res) => {
 });
 
 router.get('/search', (req, res) => {
-  let title = req.query.title;
+  let keywords = req.query.keywords;
+  // let title = req.query.title;
   // let author = req.query.author;
   // let description = req.query.description;
   // let published_date = req.query.published_date;
@@ -100,7 +101,7 @@ router.get('/search', (req, res) => {
 
   Article.find({
     "title": {
-      "$regex": title,
+      "$regex": keywords,
       "$options": "i"
     },
     "status": "Approved_By_Analyst"
