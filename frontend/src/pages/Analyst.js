@@ -139,6 +139,7 @@ const Analyst = () => {
                                     <td>{item.title}</td>
                                     <td>{item.author}</td>
                                     <td>{item.description}</td>
+                                    <td>{formatDate(item.published_date)}</td>
                                     <td>{item.published_date}</td>
                                     <td>{item.publisher}</td>
                                     <td>{item.status}</td>
