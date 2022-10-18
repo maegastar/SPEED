@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { formatDate } from '../Helper';
 
 const SearchArticle = () => {
   const handleSearch = async (event) => {
@@ -22,6 +23,23 @@ const SearchArticle = () => {
     showSearchResults(results.data);
   };
 
+  const showDetail = (item) => {
+    const modalBody = document.getElementById('modalBody');
+    const innerHTML = `<div>` +
+      `<h3>Article Details</h3>` +
+      `<ul>` +
+      `<li><strong>Title:</strong> ${item.title}</li>` +
+      `<li><strong>Author:</strong> ${item.author}</li>` +
+      `<li><strong>Published Date:</strong> ${item.published_date}</li>` +
+      `<li><strong>Publisher:</strong> ${item.publisher}</li>` +
+      `<li><strong>Description:</strong> ${item.description}</li>` +
+      `</ul>` +
+      `<a href="#" id="closeModal">&times;</a>` +
+      `</div>`;
+    modalBody.innerHTML = innerHTML;
+
+  }
+
   const showSearchResults = results => {
     let searchResultDiv = document.getElementById('searchResultDiv');
     searchResultDiv.innerHTML = "";
@@ -30,7 +48,7 @@ const SearchArticle = () => {
       const table = document.createElement('table');
 
       let headerRow = document.createElement('tr');
-      let headings = ['Title', 'Author', 'Time', 'Journal'];
+      let headings = ['Title', 'Author', 'Time', 'Journal', 'View Detail'];
 
       headings.forEach(headingText => {
         let titleHeading = document.createElement('th');
@@ -41,14 +59,35 @@ const SearchArticle = () => {
       table.appendChild(headerRow);
 
       for (const i in results) {
-        let tr = document.createElement('tr');
-        for (const j in results[i]) {
-          let td = document.createElement('td');
-          if (j === '_id' || j === '__v' || j === 'status') continue;
-          td.appendChild(document.createTextNode(`${results[i][j]}`));
-          tr.appendChild(td);
-        }
-        table.appendChild(tr);
+        results.map((item, i) => {
+          let tr = document.createElement('tr');
+
+          const insertCell = (value) => {
+            let td = document.createElement('td');
+            td.appendChild(document.createTextNode(value));
+            tr.appendChild(td);
+          };
+
+          insertCell(item.title);
+          insertCell(item.author);
+          insertCell(formatDate(item.published_date));
+          insertCell(item.publisher);
+
+          let buttonTd = document.createElement('td');
+          let button = document.createElement('button');
+          let link = document.createElement('a');
+          link.setAttribute('href', '#detailModal');
+          link.textContent = "View"
+          link.className = "view-modal-link";
+          link.onclick = function () {
+            showDetail(item);
+          };
+          button.appendChild(link);
+          buttonTd.appendChild(button);
+          tr.appendChild(buttonTd);
+
+          table.appendChild(tr);
+        })
       }
 
       searchResultDiv.appendChild(table);
@@ -98,7 +137,12 @@ const SearchArticle = () => {
         </div>
       </div>
 
-      <div id="searchResultDiv"></div>
+      <div id="searchResultDiv">
+      </div>
+      <div id="detailModal">
+        <div id="modalBody">
+        </div>
+      </div>
     </div>
   );
 
