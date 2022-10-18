@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
+import { formatDate } from '../Helper';
 
 const Analyst = () => {
 
@@ -62,16 +62,6 @@ const Analyst = () => {
                 getData(response.data);
             })
             .catch(err => console.log("API error!"));
-    }
-
-    const formatDate = (date) => {
-        let dateObj = new Date(date);
-        let month = (dateObj.getMonth() + 1).toString();
-        let day = dateObj.getDate().toString();
-        let year = dateObj.getFullYear();
-        month = month.length < 2 ? '0' + month : month;
-        day = day.length < 2 ? '0' + day : day;
-        return [year, month, day].join('-');
     }
 
     const renderForm = (
