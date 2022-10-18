@@ -81,6 +81,7 @@ router.get('/changestatus', (req, res) => {
 router.get('/submit', (req, res) => {
   Article.create({
     title: req.query.title,
+    author: req.query.author,
     description: req.query.description,
     published_date: req.query.published_date,
     publisher: req.query.publisher,
