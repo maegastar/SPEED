@@ -93,7 +93,6 @@ const Analyst = () => {
                                     <td><select id={item._id} onChange={onStatusChange.bind(this)}>
                                         <option value="current">{item.status}</option>
                                         <option value="Approved_By_Analyst">Approve</option>
-                                        <option value="Rejected">Reject</option>
                                     </select></td>
                                 </tr>
                             ))}
@@ -108,7 +107,7 @@ const Analyst = () => {
                 <div className='buttons'>
                     <button onClick={filterALL}>Show All</button>
                     <button onClick={filterModerator}>Accepted by Moderator </button>
-                    <button onClick={filterAnalyst}>Accepted by Analyst</button>
+                    <button onClick={filterAnalyst}>Published by Analyst</button>
                     <button onClick={filterRejected}>Rejected </button>
                 </div>
                 <div className='containerTable'>
