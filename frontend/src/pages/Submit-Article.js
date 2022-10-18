@@ -30,7 +30,15 @@ const SubmitArticle = () => {
       .then(response => response)
       .catch(err => console.log("API error!"));
 
-    if (response.data.isSuccessful) alert("Thank You! Your article has been submitted successfully and shall be published after the review process.");
+    if (response.data.isSuccessful) {
+      alert("Thank You! Your article has been submitted successfully and shall be published after the review process.");
+      document.getElementById("title").value = "";
+      document.getElementById("author").value = "";
+      document.getElementById("description").value = "";
+      document.getElementById("published_date").value = "";
+      document.getElementById("publisher").value = "";
+      document.getElementById("email").value = "";
+    }
   };
 
   const formToSubmitArticle = (
@@ -74,7 +82,6 @@ const SubmitArticle = () => {
   return (
     <div>
       {formToSubmitArticle}
-      {/* <p>isSubmitted ? <i>Article Submitted Successfully</i> : <i></i></p> */}
     </div>
   );
 };
