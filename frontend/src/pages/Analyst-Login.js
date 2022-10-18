@@ -3,6 +3,8 @@ import axios from 'axios';
 import {
   useNavigate
 } from "react-router-dom";
+import { rememberLogin } from '../Cookie';
+
 
 const Analyst_Login = () => {
   // React States
@@ -26,6 +28,7 @@ const Analyst_Login = () => {
         if (res.data[1].user === user) {
           if (res.data[1].pass === pass) {
             setIsSubmitted(true);
+            rememberLogin('analyst');
           } else {
             setIsSubmitted(false);
             console.log("IS submitted is false");
