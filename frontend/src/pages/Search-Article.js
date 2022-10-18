@@ -69,7 +69,7 @@ const SearchArticle = () => {
           <form onSubmit={handleSearch}>
             <div className="input-container">
               <label>Keywords </label><br></br>
-              <input type="text" name="keywords" id="keywords" />
+              <input type="text" name="keywords" id="keywords" required />
             </div>
             <div className="input-container">
               <label>Title </label><br></br>
