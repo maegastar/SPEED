@@ -9,6 +9,8 @@ const Login = require("../../models/Login");
 //load database model - as articles? could change later if needed
 const Article = require('../../models/Article');
 
+const Review = require('../../models/Review');
+
 //@route GET api/speed/test
 //tests speed route
 router.get('/test', (req, res) => res.send('speed route testing'));
@@ -123,6 +125,29 @@ router.get('/search', (req, res) => {
   })
     .then((data) => res.json(data))
     .catch((err) => res.status(400).json({ error: "Database error!" }))
+})
+
+router.get('/getById', (req, res) => {
+  Article.findById(req.query.id)
+    .then((data) => res.json(data))
+    .catch((err) => res.status(400).json({ error: err }));
+})
+
+router.get('/getReviews', (req, res) => {
+  let article_id = req.query.id;
+  Review.find({ article_id })
+    .then((data) => res.json(data))
+    .catch((err) => res.status(400).json({ error: err }));
+})
+
+router.get('/submitReview', (req, res) => {
+  let article_id = req.query.article_id;
+  let review = req.query.review;
+  let email = req.query.email;
+
+  Review.create({ article_id, review, email })
+    .then((data) => res.json(data))
+    .catch((err) => res.status(400).json({ error: err }));
 })
 
 module.exports = router;

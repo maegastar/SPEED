@@ -281,3 +281,18 @@ tr:hover {
   margin: 5px;
   margin-left: 0;
 }
+
+#reviewSubmitBtn {
+  color: white !important;
+}
+
+#reviewInput,
+#emailInput {
+  margin-top: 5px;
+  width: 24vw;
+  height: 2em;
+}
+
+#reviewInput {
+  width: 100%;
+}
