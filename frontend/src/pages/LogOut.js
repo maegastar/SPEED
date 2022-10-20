@@ -5,7 +5,7 @@ const LogOut = () => {
     resetLogin();
     return (
         <>
-            {window.location = "/Moderator"}
+            {window.location = "/"}
         </>
     );
 }
