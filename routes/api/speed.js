@@ -110,21 +110,16 @@ router.get('/submit', (req, res) => {
 
 router.get('/search', (req, res) => {
   let keywords = req.query.keywords;
-  // let title = req.query.title;
-  // let author = req.query.author;
-  // let description = req.query.description;
-  // let published_date = req.query.published_date;
-  // let publisher = req.query.publisher;
 
-  Article.find({
-    "title": {
-      "$regex": keywords,
-      "$options": "i"
-    },
-    "status": "PUBLISHED"
-  })
+  Article.find(
+    {
+      $text: { $search: keywords },
+      "status": "PUBLISHED"
+    }
+  )
+    .select('title author description published_date publisher')
     .then((data) => res.json(data))
-    .catch((err) => res.status(400).json({ error: "Database error!" }))
+    .catch((err) => res.status(400).json({ error: err }))
 })
 
 router.get('/getById', (req, res) => {

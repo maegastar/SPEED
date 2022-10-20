@@ -21,7 +21,7 @@ const SearchArticle = () => {
 
         }
       }).then(response => response)
-      .catch(err => console.log("API error!"));
+      .catch(err => console.log(err));
     showSearchResults(results.data);
   };
 
