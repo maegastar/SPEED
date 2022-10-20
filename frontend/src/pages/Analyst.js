@@ -27,22 +27,70 @@ const Analyst = () => {
             .catch(err => console.log(err));
     }
 
-    //handle status changes
-    async function onStatusChange(e) {
-        const status = e.target.value;
-        const id = e.target.id;
+    async function handleEditFormSubmit(e) {
+        e.preventDefault();
 
-        const update = await axios.get('/api/SPEED/changestatus', { params: { id, status } })
+        const id = document.getElementById('hiddenId').value;
+        const title = document.getElementById('title').value;
+        const author = document.getElementById('author').value;
+        const published_date = document.getElementById('published_date').value;
+        const publisher = document.getElementById('publisher').value;
+        const description = document.getElementById('description').value;
+
+        const update = await axios.get('/api/SPEED/publish', { params: { id, title, author, published_date, publisher, description } })
             .then((response) => {
-                fetchApprovedByModerator();
-                fetchAllData();
-            })
-            .catch(err => console.log(err));
+                alert(`Article "${title}" Published Successfully!`)
+                window.location.reload(true);
+            }).catch(err => console.log(err));
         console.log(update);
     }
 
+    const refreshEditForm = (item) => {
+        setTimeout(function () {
+            document.getElementById('hiddenId').value = item._id ?? '';
+            document.getElementById('title').value = item.title ?? '';
+            document.getElementById('author').value = item.author ?? '';
+            document.getElementById('published_date').value = item.published_date ? formatDate(item.published_date) : '';
+            document.getElementById('publisher').value = item.publisher ?? '';
+            document.getElementById('description').value = item.description ?? '';
+        }, 50);
+    }
+
+    const EditForm = () => {
+        return (
+            <div>
+                < a href="#" id="closeModal" >&times;</a >
+                <h3>Article Details</h3>
+                <form onSubmit={handleEditFormSubmit}>
+                    <input type="hidden" name="id" id="hiddenId" />
+                    <div class="input-container">
+                        <label for="title">Title</label>
+                        <input type="text" name="title" id="title" />
+                    </div>
+                    <div class="input-container">
+                        <label for="author">Author</label>
+                        <input type="text" name="author" id="author" />
+                    </div>
+                    <div class="input-container">
+                        <label for="published_date">Published Date</label>
+                        <input type="date" name="published_date" id="published_date" />
+                    </div>
+                    <div class="input-container">
+                        <label for="publisher">Publisher</label>
+                        <input type="text" name="publisher" id="publisher" />
+                    </div>
+                    <div class="input-container">
+                        <label for="description">Description</label>
+                        <input type="text" name="description" id="description" />
+                    </div>
+                    <button type="submit"> Publish </button>
+                </form>
+            </div >
+        );
+    }
+
     function filterALL() { fetchAllData(); }
-    function filterAnalyst() { fetchData("Approved_By_Analyst"); }
+    function filterAnalyst() { fetchData("PUBLISHED"); }
     function filterModerator() { fetchData("Approved_By_Moderator"); }
     function filterRejected() { fetchData("Rejected"); }
 
@@ -90,10 +138,7 @@ const Analyst = () => {
                                     <td>{formatDate(item.published_date)}</td>
                                     <td>{item.publisher}</td>
                                     <td>{item.email}</td>
-                                    <td><select id={item._id} onChange={onStatusChange.bind(this)}>
-                                        <option value="current">{item.status}</option>
-                                        <option value="Approved_By_Analyst">Approve</option>
-                                    </select></td>
+                                    <td><button><a class="view-modal-link" onClick={refreshEditForm(item)} href="#detailModal">Edit</a></button></td>
                                 </tr>
                             ))}
                         </tbody>
@@ -139,6 +184,11 @@ const Analyst = () => {
 
             </div>
 
+            <div id="detailModal">
+                <div id="modalBody">
+                    <EditForm />
+                </div>
+            </div>
         </div>
     );
 
