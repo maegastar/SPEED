@@ -143,6 +143,7 @@ const Moderator = () => {
                                 <th>Author </th>
                                 <th>Description </th>
                                 <th>Published Date </th>
+                                <th>Email </th>
                                 <th>Publisher </th>
                                 <th>Status</th>
                             </tr>
@@ -154,6 +155,7 @@ const Moderator = () => {
                                     <td>{item.author}</td>
                                     <td>{item.description}</td>
                                     <td>{item.published_date}</td>
+                                    <td>{item.email}</td>
                                     <td>{item.publisher}</td>
                                     <td>{item.status}</td>
                                 </tr>
