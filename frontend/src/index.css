@@ -235,6 +235,18 @@ tr:hover {
   padding: 1em 2em;
 }
 
+#modalBody h3 {
+  text-align: center;
+}
+
+#modalBody label {
+  color: #000;
+}
+
+#modalBody button {
+  color: black;
+}
+
 #modalFooter {
   text-align: right;
 }
@@ -255,4 +267,16 @@ tr:hover {
 .view-modal-link {
   text-decoration: none;
   text-transform: uppercase;
+}
+
+/* Dashboard Table Filter Buttons */
+.buttons button {
+  background: #0099ffc8;
+  color: white;
+  text-transform: uppercase;
+  padding: 6px;
+  border-radius: 3px;
+  border: 1px solid;
+  margin: 5px;
+  margin-left: 0;
 }

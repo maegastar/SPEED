@@ -5,13 +5,20 @@ import {
 } from "react-router-dom";
 
 const Moderator_Login = () => {
-    // React States
+  // React States
   const [isSubmitted, setIsSubmitted] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     //Prevent page reload
     event.preventDefault();
+
+    const handleFailedLogin = () => {
+      setIsSubmitted(false);
+      alert("We couldn't log you in with those credentials. Please try again!");
+      document.getElementById('user').value = "";
+      document.getElementById('pass').value = "";
+    }
 
     var user = document.getElementById("user").value;
     var pass = document.getElementById("pass").value;
@@ -23,17 +30,8 @@ const Moderator_Login = () => {
     axios
       .get('https://speed-website.herokuapp.com/api/SPEED/mod')
       .then(res => {
-       if(res.data[0].user === user){
-        if(res.data[0].pass === pass){
-          setIsSubmitted(true);
-        } else {
-          setIsSubmitted(false);
-        console.log("IS submitted is false");
-        }
-       } else {
-        setIsSubmitted(false);
-        console.log("IS submitted is false");
-       }
+        if (res.data[0].user === user && res.data[0].pass === pass) setIsSubmitted(true)
+        else handleFailedLogin();
       })
       .catch(err => {
         console.log("API Error!");
@@ -44,34 +42,34 @@ const Moderator_Login = () => {
   // JSX code for login form
   const renderForm = (
     <div>
-    <div id="id01" className="modal">
-      <div className = "container">
-        <div className="form">
-          <form onSubmit={handleSubmit}>
-            <div className="input-container moderator-analyst">
-              <label>Username </label><br></br>
-              <input type="text" name="user" id="user" required />
-            </div>
-            <div className="input-container moderator-analyst">
-              <label>Password </label><br></br>
-              <input type="password" name="pass" id="pass" required />
-            </div>
-            <div className="button-container">
-              <button type="submit">Login</button>
-            </div>
-          </form>
+      <div id="id01" className="modal">
+        <div className="container">
+          <div className="form">
+            <form onSubmit={handleSubmit}>
+              <div className="input-container moderator-analyst">
+                <label>Username </label><br></br>
+                <input type="text" name="user" id="user" required />
+              </div>
+              <div className="input-container moderator-analyst">
+                <label>Password </label><br></br>
+                <input type="password" name="pass" id="pass" required />
+              </div>
+              <div className="button-container">
+                <button type="submit">Login</button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
     </div>
   );
 
   return (
-      <div className="login-form">
-        {isSubmitted ? navigate("/Moderator") : renderForm}
-        
-      </div>
+    <div className="login-form">
+      {isSubmitted ? navigate("/Moderator") : renderForm}
+
+    </div>
   );
 }
- 
+
 export default Moderator_Login;
