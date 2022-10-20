@@ -7,37 +7,108 @@ const SearchArticle = () => {
     event.preventDefault();
 
     var keywords = document.getElementById("keywords").value;
-    var title = document.getElementById("title").value;
-    var author = document.getElementById("author").value;
-    var description = document.getElementById("description").value;
-    var publishedDate = document.getElementById("publishedDate").value;
-    var publisher = document.getElementById("publisher").value;
+    // var title = document.getElementById("title").value;
+    // var author = document.getElementById("author").value;
+    // var description = document.getElementById("description").value;
+    // var publishedDate = document.getElementById("publishedDate").value;
+    // var publisher = document.getElementById("publisher").value;
 
     const results = await axios
       .get('/api/SPEED/search', {
         params: {
-          keywords, title, author, description, publishedDate, publisher
+          keywords,
+          // title, author, description, publishedDate, publisher
+
         }
       }).then(response => response)
       .catch(err => console.log("API error!"));
     showSearchResults(results.data);
   };
 
-  const showDetail = (item) => {
-    const modalBody = document.getElementById('modalBody');
-    const innerHTML = `<div>` +
-      `<h3>Article Details</h3>` +
-      `<ul>` +
-      `<li><strong>Title:</strong> ${item.title}</li>` +
-      `<li><strong>Author:</strong> ${item.author}</li>` +
-      `<li><strong>Published Date:</strong> ${item.published_date}</li>` +
-      `<li><strong>Publisher:</strong> ${item.publisher}</li>` +
-      `<li><strong>Description:</strong> ${item.description}</li>` +
-      `</ul>` +
-      `<a href="#" id="closeModal">&times;</a>` +
-      `</div>`;
-    modalBody.innerHTML = innerHTML;
+  const loadReviews = async (id) => {
+    const reviews = await axios
+      .get('api/SPEED/getReviews', { params: { id } })
+      .then(response => response.data)
+      .catch(err => console.log("Error: " + err));
 
+    const reviewsContainer = document.getElementById('reviewsContainer');
+    let reviewsHTML = `<input type="hidden" id="articleId" value="${id}"/>`;
+    reviews.forEach((review) => {
+      reviewsHTML +=
+        `<div class="review">` +
+        `  <p class="reviewer-email"><strong>${review.email}</strong> : ${review.review}</p>` +
+        `</div>`;
+    })
+    reviewsContainer.innerHTML = reviewsHTML;
+  }
+
+  const refreshDetailModal = async (id) => {
+    const item = await axios
+      .get('api/SPEED/getById', {
+        params: { id }
+      }).then(response => response.data)
+      .catch(err => console.log("Error: " + err));
+
+    document.getElementById('titleText').textContent = item.title ?? '';
+    document.getElementById('authorText').textContent = item.author ?? '';
+    document.getElementById('publishedDateText').textContent = item.published_date ? formatDate(item.published_date) : '';
+    document.getElementById('publisherText').textContent = item.publisher ?? '';
+    document.getElementById('descriptionText').textContent = item.description ?? '';
+
+    loadReviews(id);
+  }
+
+  const handleReviewSubmit = async (e) => {
+    e.preventDefault();
+
+    const article_id = document.getElementById('articleId').value;
+    const review = document.getElementById('reviewInput').value;
+    const email = document.getElementById('emailInput').value;
+
+    const result = await axios.get('/api/SPEED/submitReview', { params: { article_id, review, email } })
+      .then(response => response)
+      .catch(err => console.log("Error: " + err));
+    console.log(result);
+    alert("Thank you for leaving a review!");
+    document.getElementById('reviewInput').value = "";
+    document.getElementById('emailInput').value = "";
+    loadReviews(article_id);
+  }
+
+  const ReviewForm = () => {
+    return (
+      <>
+        <form onSubmit={handleReviewSubmit}>
+          <p><strong>Leave a review</strong></p>
+
+          <input type="text" name="review" id="reviewInput" placeholder='your review...' />
+          <br />
+          <input type="text" name="email" id="emailInput" placeholder="email@xyz.com" />
+
+          <button id="reviewSubmitBtn" type='submit'>Submit</button>
+        </form>
+      </>
+    );
+  }
+
+  const ModalBody = () => {
+    return (
+      <>
+        <a href="#" id="closeModal">&times;</a>
+        <h3>Article Detail</h3>
+        <p><strong>Title:</strong> <span id="titleText"></span></p>
+        <p><strong>Author:</strong> <span id="authorText"></span></p>
+        <p><strong>Published Date:</strong> <span id="publishedDateText"></span></p>
+        <p><strong>Publisher:</strong> <span id="publisherText"></span></p>
+        <p><strong>Description:</strong><br /> <span id="descriptionText"></span></p>
+        <hr />
+        <h3>Reviews</h3>
+        <hr />
+        <div id="reviewsContainer"></div>
+        <hr />
+        <ReviewForm />
+      </>
+    );
   }
 
   const showSearchResults = results => {
@@ -80,7 +151,7 @@ const SearchArticle = () => {
           link.textContent = "View"
           link.className = "view-modal-link";
           link.onclick = function () {
-            showDetail(item);
+            refreshDetailModal(item._id);
           };
           button.appendChild(link);
           buttonTd.appendChild(button);
@@ -110,6 +181,7 @@ const SearchArticle = () => {
               <label>Keywords </label><br></br>
               <input type="text" name="keywords" id="keywords" required />
             </div>
+            {/*  
             <div className="input-container">
               <label>Title </label><br></br>
               <input type="text" name="title" id="title" />
@@ -130,6 +202,7 @@ const SearchArticle = () => {
               <label>Publisher </label><br></br>
               <input type="text" name="publisher" id="publisher" />
             </div>
+            */}
             <div className="button-container">
               <button type="submit">Search</button>
             </div>
@@ -141,6 +214,7 @@ const SearchArticle = () => {
       </div>
       <div id="detailModal">
         <div id="modalBody">
+          <ModalBody />
         </div>
       </div>
     </div>
