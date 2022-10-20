@@ -20,7 +20,7 @@ const App = () => {
       <div>
 
         <h1>Software Practice Empirical Evidence Database (SPEED)</h1>
-        <ul className="header">
+        <ul className="header" id = "header">
           <li><NavLink end to="/">Home</NavLink></li>
           <li><NavLink to="/SubmitArticle">Submit an Article</NavLink></li>
           <li><NavLink to="/SearchArticle">Search Articles</NavLink></li>
