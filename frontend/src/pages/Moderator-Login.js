@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import {
-  useNavigate
-} from "react-router-dom";
+import { rememberLogin } from '../Cookie';
 
 const Moderator_Login = () => {
   // React States
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     //Prevent page reload
@@ -30,8 +27,12 @@ const Moderator_Login = () => {
     axios
       .get('https://speed-website.herokuapp.com/api/SPEED/mod')
       .then(res => {
-        if (res.data[0].user === user && res.data[0].pass === pass) setIsSubmitted(true)
-        else handleFailedLogin();
+        if (res.data[0].user === user && res.data[0].pass === pass) {
+          setIsSubmitted(true)
+          rememberLogin('moderator');
+        } else {
+          handleFailedLogin();
+        }
       })
       .catch(err => {
         console.log("API Error!");
@@ -66,8 +67,7 @@ const Moderator_Login = () => {
 
   return (
     <div className="login-form">
-      {isSubmitted ? navigate("/Moderator") : renderForm}
-
+      {isSubmitted ? window.location = "/Moderator" : renderForm}
     </div>
   );
 }

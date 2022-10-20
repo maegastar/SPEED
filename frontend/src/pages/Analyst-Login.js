@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import {
-  useNavigate
-} from "react-router-dom";
+import { rememberLogin } from '../Cookie';
+
 
 const Analyst_Login = () => {
   // React States
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     //Prevent page reload
@@ -30,8 +28,12 @@ const Analyst_Login = () => {
     axios
       .get('https://speed-website.herokuapp.com/api/SPEED/mod')
       .then(res => {
-        if (res.data[1].user === user && res.data[1].pass === pass) setIsSubmitted(true)
-        else handleFailedLogin();
+        if (res.data[1].user === user && res.data[1].pass === pass) {
+          setIsSubmitted(true)
+          rememberLogin('analyst');
+        } else {
+          handleFailedLogin();
+        }
       })
       .catch(err => {
         console.log("API Error!");
@@ -66,7 +68,7 @@ const Analyst_Login = () => {
 
   return (
     <div className="login-form">
-      {isSubmitted ? navigate("/Analyst") : renderForm}
+      {isSubmitted ? window.location = "/Analyst" : renderForm}
     </div>
   );
 }
