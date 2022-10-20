@@ -235,6 +235,18 @@ tr:hover {
   padding: 1em 2em;
 }
 
+#modalBody h3 {
+  text-align: center;
+}
+
+#modalBody label {
+  color: #000;
+}
+
+#modalBody button {
+  color: black;
+}
+
 #modalFooter {
   text-align: right;
 }
