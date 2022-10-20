@@ -76,7 +76,21 @@ router.get('/changestatus', (req, res) => {
     .catch((err) => res.status(400).json({ error: "Database error!" + err }));
 
 
-})
+});
+
+router.get('/publish', (req, res) => {
+  const id = req.query.id;
+  const title = req.query.title;
+  const author = req.query.author;
+  const published_date = req.query.published_date;
+  const publisher = req.query.publisher;
+  const description = req.query.description;
+  const status = "PUBLISHED";
+
+  Article.findByIdAndUpdate(id, { title, author, published_date, publisher, description, status }, { new: true })
+    .then((data) => res.json(data))
+    .catch((err) => res.status(400).json({ error: "Database error!" + err }));
+});
 
 router.get('/submit', (req, res) => {
   Article.create({
@@ -105,7 +119,7 @@ router.get('/search', (req, res) => {
       "$regex": keywords,
       "$options": "i"
     },
-    "status": "Approved_By_Analyst"
+    "status": "PUBLISHED"
   })
     .then((data) => res.json(data))
     .catch((err) => res.status(400).json({ error: "Database error!" }))
