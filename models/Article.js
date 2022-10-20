@@ -23,7 +23,7 @@ const ArticleSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    default: 'Pending_Review', // Other Possible Values: 'Approved_By_Moderator', 'Approved_By_Analyst', 'Rejected'
+    default: 'Pending_Review', // Other Possible Values: 'Approved_By_Moderator', 'Published', 'Rejected'
   },
 });
 
