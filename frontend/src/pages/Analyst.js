@@ -25,7 +25,7 @@ const Analyst = () => {
                 getPendingData(response.data);
             })
             .catch(err => console.log(err));
-        document.getElementById("header").style.visibility = 'hidden';
+        // document.getElementById("header").style.visibility = 'hidden';
     }
 
     async function handleEditFormSubmit(e) {

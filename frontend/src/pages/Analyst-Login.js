@@ -1,15 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import {
-  useNavigate
-} from "react-router-dom";
 import { rememberLogin } from '../Cookie';
 
 
 const Analyst_Login = () => {
   // React States
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     //Prevent page reload
@@ -72,7 +68,7 @@ const Analyst_Login = () => {
 
   return (
     <div className="login-form">
-      {isSubmitted ? navigate("/Analyst") : renderForm}
+      {isSubmitted ? window.location = "/Analyst" : renderForm}
     </div>
   );
 }

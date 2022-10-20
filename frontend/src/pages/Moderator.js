@@ -24,8 +24,8 @@ const Moderator = () => {
                 console.log(response.data);
                 getPendingData(response.data);
             })
-        .catch(err => console.log("API error!"));
-        document.getElementById("header").style.visibility='hidden';
+            .catch(err => console.log("API error!"));
+        // document.getElementById("header").style.visibility='hidden';
     }
 
     //handle status changes
@@ -38,7 +38,7 @@ const Moderator = () => {
                 }).then((response) => {
                     console.log(response.data);
                 })
-            .catch(err => console.log("API error!"));
+                .catch(err => console.log("API error!"));
         }
         submitUpdateStatus();
         fetchAllData();
@@ -76,7 +76,7 @@ const Moderator = () => {
                 console.log(response.data);
                 getData(response.data);
             })
-        .catch(err => console.log("API error!"));
+            .catch(err => console.log("API error!"));
     }
 
     const fetchAllData = () => {
@@ -85,7 +85,7 @@ const Moderator = () => {
                 console.log(response.data);
                 getData(response.data);
             })
-        .catch(err => console.log("API error!"));
+            .catch(err => console.log("API error!"));
     }
 
     const renderForm = (
@@ -167,14 +167,14 @@ const Moderator = () => {
         </div>
     );
 
-    
+
 
     return (
         <div>
             {renderForm}
         </div>
     );
-    
+
 
 }
 
