@@ -25,6 +25,7 @@ const Moderator = () => {
                 getPendingData(response.data);
             })
         .catch(err => console.log("API error!"));
+        document.getElementById("header").style.visibility='hidden';
     }
 
     //handle status changes
@@ -166,11 +167,14 @@ const Moderator = () => {
         </div>
     );
 
+    
+
     return (
         <div>
             {renderForm}
         </div>
     );
+    
 
 }
 

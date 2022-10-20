@@ -33,6 +33,7 @@ ul.header li {
 ul.header {
   padding: 0;
   margin-bottom: 0px;
+  visibility: visible;
 }
 
 ul.header.footer {
