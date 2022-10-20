@@ -295,3 +295,8 @@ tr:hover {
 #reviewInput {
   width: 100%;
 }
+
+.pendingTable table,
+.allTable table {
+  background-color: #fbfbfbb0;
+}
